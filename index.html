@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>名古屋さんぽマップ ｜ 2泊3日・金山発着</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --washi:#f4eee1;
+    --washi-deep:#ece3d0;
+    --sumi:#272320;
+    --sumi-soft:#544c43;
+    --shu:#c2402f;          /* 朱 vermilion */
+    --shu-deep:#9c2f22;
+    --kin:#bd9743;          /* 金 gold */
+    --ai:#2c4a5a;           /* 藍 indigo */
+    --line:#d8cbb2;
+    --card:#fbf7ee;
+    --mincho:"Shippori Mincho B1",serif;
+    --gothic:"Zen Kaku Gothic New",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--gothic);
+    color:var(--sumi);
+    background-color:var(--washi);
+    background-image:
+      radial-gradient(circle at 12% 18%, rgba(194,64,47,.05) 0, transparent 38%),
+      radial-gradient(circle at 88% 8%, rgba(189,151,67,.07) 0, transparent 40%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    line-height:1.8;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:0 24px}
+
+  /* ---------- Hero ---------- */
+  header.hero{
+    position:relative;
+    padding:78px 0 54px;
+    text-align:center;
+    overflow:hidden;
+  }
+  .hero .seal{
+    display:inline-block;
+    font-family:var(--mincho);
+    font-weight:800;
+    color:#fff;
+    background:var(--shu);
+    width:62px;height:62px;line-height:62px;
+    border-radius:8px;
+    font-size:30px;
+    letter-spacing:-2px;
+    box-shadow:0 6px 20px rgba(156,47,34,.35);
+    transform:rotate(-4deg);
+    margin-bottom:26px;
+  }
+  .hero h1{
+    font-family:var(--mincho);
+    font-weight:800;
+    font-size:clamp(40px,8vw,72px);
+    letter-spacing:.06em;
+    line-height:1.15;
+  }
+  .hero h1 .dot{color:var(--shu)}
+  .hero .sub{
+    margin-top:18px;
+    font-size:15px;
+    letter-spacing:.4em;
+    color:var(--sumi-soft);
+    text-indent:.4em;
+  }
+  .hero .meta{
+    margin-top:26px;
+    display:inline-flex;gap:10px;flex-wrap:wrap;justify-content:center;
+  }
+  .hero .meta span{
+    font-size:13px;letter-spacing:.08em;
+    border:1px solid var(--line);
+    background:var(--card);
+    padding:7px 15px;border-radius:999px;
+    color:var(--sumi-soft);
+  }
+  .hero .rule{
+    width:54px;height:3px;background:var(--kin);margin:34px auto 0;border-radius:2px;
+  }
+
+  /* ---------- Access ---------- */
+  section.access{padding:30px 0 10px}
+  .access .panel{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-left:5px solid var(--ai);
+    border-radius:14px;
+    padding:24px 26px;
+  }
+  .panel h2{
+    font-family:var(--mincho);font-weight:700;font-size:21px;
+    letter-spacing:.04em;margin-bottom:12px;color:var(--ai);
+  }
+  .panel p{font-size:14.5px;color:var(--sumi-soft)}
+  .panel .grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:14px 28px;margin-top:16px;
+  }
+  .panel .grid div{font-size:13.5px}
+  .panel .grid b{color:var(--sumi);font-weight:700;display:block;margin-bottom:2px;letter-spacing:.03em}
+  @media(max-width:600px){.panel .grid{grid-template-columns:1fr}}
+
+  /* ---------- Day ---------- */
+  .day{padding:46px 0 8px}
+  .day-head{display:flex;align-items:flex-end;gap:18px;margin-bottom:8px;flex-wrap:wrap}
+  .day-num{
+    font-family:var(--mincho);font-weight:800;
+    font-size:54px;line-height:.9;color:var(--shu);
+    position:relative;
+  }
+  .day-num small{display:block;font-size:13px;letter-spacing:.3em;color:var(--kin);margin-bottom:6px;font-family:var(--gothic);font-weight:700}
+  .day-title{font-family:var(--mincho);font-weight:700;font-size:22px;letter-spacing:.03em;padding-bottom:6px}
+  .day-route{
+    font-size:13px;color:var(--sumi-soft);letter-spacing:.04em;
+    margin:10px 0 26px;padding-left:2px;
+  }
+
+  /* timeline */
+  .timeline{position:relative;padding-left:30px}
+  .timeline::before{
+    content:"";position:absolute;left:9px;top:6px;bottom:18px;width:2px;
+    background:linear-gradient(var(--shu),var(--kin));border-radius:2px;
+  }
+  .stop{position:relative;margin-bottom:18px;opacity:0;transform:translateY(14px);animation:rise .6s forwards}
+  .stop::before{
+    content:"";position:absolute;left:-26px;top:20px;
+    width:13px;height:13px;border-radius:50%;
+    background:var(--washi);border:3px solid var(--shu);
+  }
+  .stop.end::before{border-color:var(--ai);background:var(--ai)}
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:13px;
+    padding:16px 18px;
+    display:flex;gap:16px;align-items:flex-start;
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .card:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(39,35,32,.08)}
+  .time{
+    flex:0 0 auto;
+    font-family:var(--mincho);font-weight:700;font-size:17px;
+    color:var(--shu-deep);min-width:50px;letter-spacing:.02em;
+    padding-top:1px;
+  }
+  .body{flex:1}
+  .body .top{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .body h3{font-size:17.5px;font-weight:700;letter-spacing:.02em}
+  .body h3 a{color:var(--sumi);text-decoration:none;border-bottom:1.5px solid transparent;transition:border-color .15s}
+  .body h3 a:hover{border-color:var(--shu)}
+  .tag{
+    font-size:11px;letter-spacing:.08em;font-weight:700;
+    padding:2px 9px;border-radius:999px;background:var(--washi-deep);color:var(--sumi-soft);
+  }
+  .hours{font-size:12px;color:var(--kin);font-weight:700;letter-spacing:.04em}
+  .note{font-size:13.5px;color:var(--sumi-soft);margin-top:5px}
+  .maplink{
+    display:inline-block;margin-top:8px;font-size:12px;font-weight:700;
+    color:var(--ai);text-decoration:none;letter-spacing:.04em;
+  }
+  .maplink::before{content:"\1F4CD\00A0"}
+  .maplink:hover{color:var(--shu)}
+
+  .endcard{
+    background:transparent;border:1px dashed var(--line);
+    color:var(--ai);font-weight:700;font-size:14px;letter-spacing:.05em;
+    padding:12px 18px;border-radius:13px;
+  }
+
+  .daynote{
+    margin-top:18px;font-size:13px;color:var(--sumi-soft);
+    background:rgba(189,151,67,.09);border-radius:10px;padding:12px 16px;
+    border-left:3px solid var(--kin);letter-spacing:.02em;
+  }
+
+  /* day3 */
+  .travel{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:24px 26px;text-align:center;
+  }
+  .travel h3{font-family:var(--mincho);font-size:19px;margin-bottom:8px}
+  .travel p{font-size:14px;color:var(--sumi-soft)}
+
+  footer{
+    margin-top:60px;padding:34px 0 50px;text-align:center;
+    border-top:1px solid var(--line);
+  }
+  footer p{font-size:12px;color:var(--sumi-soft);letter-spacing:.06em}
+  footer .mark{font-family:var(--mincho);color:var(--shu);font-size:15px;font-weight:700;letter-spacing:.2em}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="seal">名</div>
+    <h1>名古屋<span class="dot">さんぽ</span>マップ</h1>
+    <p class="sub">2 泊 3 日 ・ 金 山 発 着</p>
+    <div class="meta">
+      <span>金 → 土 → 日</span>
+      <span>マスト 9 スポット</span>
+      <span>地下鉄＋徒歩</span>
+    </div>
+    <div class="rule"></div>
+  </div>
+</header>
+
+<section class="access">
+  <div class="wrap">
+    <div class="panel">
+      <h2>アクセスの骨格</h2>
+      <p>拠点は <b style="display:inline">金山駅</b>。名港線・名城線・JR・名鉄が集まるハブで、空港特急ミュースカイも停車。9スポットを金・土の2日間に集約し、両日とも金山に帰着する設計です。</p>
+      <div class="grid">
+        <div><b>セントレア → 金山</b>ミュースカイで最速28分（運賃980円＋ミューチケット）。金曜15時着想定。</div>
+        <div><b>金山 → 名古屋駅</b>JRで約4分。金曜夜の名駅エリアへ。</div>
+        <div><b>金山 → 名古屋港</b>名港線で約12分。土曜朝イチの一発目。</div>
+        <div><b>日曜の帰路</b>金山発ミュースカイで空港へ。12時発なら国内線9:45／国際線9:00前後発が目安。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DAY 1 -->
+<section class="day">
+  <div class="wrap">
+    <div class="day-head">
+      <div class="day-num"><small>FRIDAY</small>1</div>
+      <div class="day-title">金曜 — 金山発・名古屋駅＋栄（夜）</div>
+    </div>
+    <p class="day-route">17:00 金山発 → 名古屋駅エリア → 栄（夜景＋夕食） → 金山着。夜遅くまで開く3スポットを初日に。</p>
+
+    <div class="timeline">
+      <div class="stop" style="animation-delay:.05s"><div class="card">
+        <div class="time">17:15</div>
+        <div class="body">
+          <div class="top"><h3><a href="https://maps.google.com/?cid=14544297872208213304" target="_blank" rel="noopener">三省堂書店 名古屋本店</a></h3><span class="tag">名古屋駅</span><span class="hours">10:00–21:00</span></div>
+          <p class="note">金山からJRで名古屋駅へ約4分。タカシマヤ ゲートタワーモール8F、駅直上。</p>
+          <a class="maplink" href="https://maps.google.com/?cid=14544297872208213304" target="_blank" rel="noopener">Googleマップで開く</a>
+        </div>
+      </div></div>
+
+      <div class="stop" style="animation-delay:.12s"><div class="card">
+        <div class="time">18:25</div>
+        <div class="body">
+          <div class="top"><h3><a href="https://maps.google.com/?cid=17664812349781568463" target="_blank" rel="noopener">アニメイト名古屋</a></h3><span class="tag">名古屋駅</span><span class="hours">11:00–20:00</span></div>
+          <p class="note">駅南・椿町へ徒歩7〜10分。20時閉店がこの日唯一の時間の関門。3フロアの大型店。</p>
+          <a class="maplink" href="https://maps.google.com/?cid=17664812349781568463" target="_blank" rel="noopener">Googleマップで開く</a>
+        </div>
+      </div></div>
+
+      <div class="stop" style="animation-delay:.19s"><div class="card">
+        <div class="time">19:45</div>
+        <div class="body">
+          <div class="top"><h3><a href="https://maps.google.com/?cid=6106570356913046486" target="_blank" rel="noopener">オアシス21 iセンター</a></h3><span class="tag">栄</span><span class="hours">〜23:00</span></div>
+          <p class="note">名古屋駅→栄は東山線で約5分。夜の「水の宇宙船」ライトアップが映える。栄で夕食を。</p>
+          <a class="maplink" href="https://maps.google.com/?cid=6106570356913046486" target="_blank" rel="noopener">Googleマップで開く</a>
+        </div>
+      </div></div>
+
+      <div class="stop end" style="animation-delay:.26s">
+        <div class="endcard">21:30 金山駅へ帰着 — 栄から名城線で約8分・乗換なし</div>
+      </div>
+    </div>
+
+    <p class="daynote">書店でゆっくりしたい場合は、23時まで開くオアシス21を後ろにずらして時間を吸収できます。</p>
+  </div>
+</section>
+
+<!-- DAY 2 -->
+<section class="day">
+  <div class="wrap">
+    <div class="day-head">
+      <div class="day-num"><small>SATURDAY</small>2</div>
+      <div class="day-title">土曜 — 名古屋港 → 名古屋城 → 久屋大通・栄 → 大須</div>
+    </div>
+    <p class="day-route">残り6スポットを完走。名港線→名城線の南北一本で、最後は1駅で金山に吸い込まれる動線。</p>
+
+    <div class="timeline">
+      <div class="stop" style="animation-delay:.05s"><div class="card">
+        <div class="time">9:30</div>
+        <div class="body">
+          <div class="top"><h3><a href="https://maps.google.com/?cid=17769589428734455299" target="_blank" rel="noopener">名古屋港ポートビル</a></h3><span class="tag">名古屋港</span><span class="hours">9:30–17:00 / 月休</span></div>
+          <p class="note">金山から名港線で約12分。開館直後は空いていて展望良好。日曜は帰路のため土曜の朝イチに固定。</p>
+          <a class="maplink" href="https://maps.google.com/?cid=17769589428734455299" target="_blank" rel="noopener">Googleマップで開く</a>
+        </div>
+      </div></div>
+
+      <div class="stop" style="animation-delay:.11s"><div class="card">
+        <div class="time">11:45</div>
+        <div class="body">
+          <div class="top"><h3><a href="https://maps.google.com/?cid=15458159795317185073" target="_blank" rel="noopener">金シャチ横丁 義直ゾーン</a></h3><span class="tag">名古屋城</span><span class="hours">10:30–17:30</span></div>
+          <p class="note">名港線→金山→名城線「名古屋城」。城の正門側。名古屋城見学＋名店系ランチ。早閉まりなので昼に。</p>
+          <a class="maplink" href="https://maps.google.com/?cid=15458159795317185073" target="_blank" rel="noopener">Googleマップで開く</a>
+        </div>
+      </div></div>
+
+      <div class="stop" style="animation-delay:.17s"><div class="card">
+        <div class="time">13:30</div>
+        <div class="body">
+          <div class="top"><h3><a href="https://maps.google.com/?cid=13795757535227338788" target="_blank" rel="noopener">金シャチ横丁 宗春ゾーン</a></h3><span class="tag">名古屋城</span><span class="hours">11:00–22:00</span></div>
+          <p class="note">城の東門側。食べ歩き・デザート系で軽く。</p>
+          <a class="maplink" href="https://maps.google.com/?cid=13795757535227338788" target="_blank" rel="noopener">Googleマップで開く</a>
+        </div>
+      </div></div>
+
+      <div class="stop" style="animation-delay:.23s"><div class="card">
+        <div class="time">14:45</div>
+        <div class="body">
+          <div class="top"><h3><a href="https://maps.google.com/?cid=15921037229738238905" target="_blank" rel="noopener">名古屋天狼院</a></h3><span class="tag">久屋大通</span><span class="hours">10:00–20:00</span></div>
+          <p class="note">名城線「名古屋城」→「久屋大通」2駅。本×カフェの空間。ここから公園を南下。</p>
+          <a class="maplink" href="https://maps.google.com/?cid=15921037229738238905" target="_blank" rel="noopener">Googleマップで開く</a>
+        </div>
+      </div></div>
+
+      <div class="stop" style="animation-delay:.29s"><div class="card">
+        <div class="time">16:00</div>
+        <div class="body">
+          <div class="top"><h3><a href="https://maps.google.com/?cid=17373059046601374805" target="_blank" rel="noopener">iHug Cheese レイヤード久屋大通店</a></h3><span class="tag">栄</span><span class="hours">11:00–20:00</span></div>
+          <p class="note">RAYARD久屋大通 ZONE4。チーズスイーツでおやつ休憩。</p>
+          <a class="maplink" href="https://maps.google.com/?cid=17373059046601374805" target="_blank" rel="noopener">Googleマップで開く</a>
+        </div>
+      </div></div>
+
+      <div class="stop" style="animation-delay:.35s"><div class="card">
+        <div class="time">17:30</div>
+        <div class="body">
+          <div class="top"><h3><a href="https://maps.google.com/?cid=4586885208320635244" target="_blank" rel="noopener">大須 巨大招き猫</a></h3><span class="tag">大須</span><span class="hours">24h</span></div>
+          <p class="note">名城線「上前津」へ。大須商店街で夜ごはん＆食べ歩き。</p>
+          <a class="maplink" href="https://maps.google.com/?cid=4586885208320635244" target="_blank" rel="noopener">Googleマップで開く</a>
+        </div>
+      </div></div>
+
+      <div class="stop end" style="animation-delay:.41s">
+        <div class="endcard">19:45 金山駅へ帰着 — 大須「上前津」から名城線で1駅</div>
+      </div>
+    </div>
+
+    <p class="daynote">ロングデイ。疲れたら通り道の天狼院かiHugを短縮可。金シャチ横丁・大須は食事も兼ねるので時間を確保。</p>
+  </div>
+</section>
+
+<!-- DAY 3 -->
+<section class="day">
+  <div class="wrap">
+    <div class="day-head">
+      <div class="day-num"><small>SUNDAY</small>3</div>
+      <div class="day-title">日曜 — 帰路（移動のみ）</div>
+    </div>
+    <div class="travel">
+      <h3>金山 → セントレア</h3>
+      <p>ミュースカイで空港まで約24分。12時発なら、国内線で金山9:45発、国際線で9:00前後発が目安。朝食を済ませてそのまま空港へ。</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="mark">名 古 屋 さ ん ぽ</p>
+    <p style="margin-top:10px">9スポット完走プラン ／ 金山発着 ／ 営業時間は変動の可能性あり、訪問前に各店要確認</p>
+  </div>
+</footer>
+
+</body>
+</html>
